@@ -1,5 +1,5 @@
 import { APIBuilder, type ClientRouteDefinition } from './APIBuilder';
-import type { ClientWorkerManager } from './ClientWorkerManager';
+import { EventBus } from '../Routes/EventBus';
 import type { EventMessage } from '../Event/EventMessage';
 
 export class APIRunner<returnType, paramsType> {
@@ -33,7 +33,7 @@ export class APIRunner<returnType, paramsType> {
 	}
 
 	public static instanceBasic<returnType, paramsType>(
-		client: ClientWorkerManager,
+		client: EventBus,
 		route: ClientRouteDefinition<returnType, paramsType>
 	): APIRunner<returnType, paramsType> {
 		const builder = new APIBuilder(route, client);

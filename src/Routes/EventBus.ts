@@ -1,20 +1,27 @@
-import { ConsolePrefix } from '../Console/Formatters';
-import type { ContextRoute } from '../Routes/ContextRoute';
+import { ConsoleFormatter, ConsolePrefix } from '../Console/Formatters';
+import type { ContextRoute, clientDefs } from '../Routes/ContextRoute';
 import { EventMessage } from '../Event/EventMessage';
 import { Logger } from '../Console/Logger';
 import { isWorker } from '../utils/isWorker';
+
 
 type EventMsgHandler<out, params> = {
 		msgEvent: EventMessage<out, params>,
 		clbk: (eventMsg: EventMessage<out, params>) => void
 }
 
+// If you remove this line, inellisense will not work
+export type clientRoutesType<CTX extends EventBus> = {
+	// @ts-expect-error routes are private
+  [key in keyof CTX["routes"]]: clientDefs<CTX["routes"][key]>;
+};
+
 export abstract class EventBus {
 		protected abstract routes: { [key: string]: ContextRoute<any> }
-		// eslint-disable-next-line no-undef
+
 		public isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
 
-		constructor(public manager: Worker) {
+		protected constructor(public manager: Worker) {
 			manager.addEventListener('message', (ev) => this.onWorkerMessage(ev));
 			manager.addEventListener('error', (ev) => this.onWorkerError(ev));
 			manager.addEventListener('messageerror', (ev) => this.onWorkerMessage(ev));
@@ -124,4 +131,30 @@ export abstract class EventBus {
 
 			return prom;
 		}
+
+		protected async postInitialize() {
+			// Register all evento to be routed
+			console.groupCollapsed("Worker route registers");
+	
+			Object.entries(this.routes).forEach(([_, ctx]) => {
+				Object.entries(ctx.EventRoutes).forEach(([methodName, _]) => {
+					console.debug(...ConsoleFormatter.info("routeRegister", { context: ctx.contextName, method: methodName}));
+				});
+			});
+			console.groupEnd();
+	
+			// Register routes on client
+			const initializedEvent = new EventMessage("root", "initialized");
+			initializedEvent.returnData = this.getClientRoutes();
+			initializedEvent.resolved = true;
+			this.postMessage(initializedEvent, true);
+		}
+
+		public getClientRoutes(): clientRoutesType<this> {
+      return Object.entries(this.routes).reduce((arr: clientRoutesType<this>, [ctxName, ctx]) => {
+        // @ts-expect-error ctxName alwais will be a index of arr
+        arr[ctxName] = ctx.getRoutes();
+        return arr;
+      }, {} as clientRoutesType<this>);
+    }
 }

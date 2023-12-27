@@ -10,7 +10,6 @@ export const ConsoleColors = {
 	purple : 'color: #d602ee; '
 };
 
-// eslint-disable-next-line no-undef
 export const isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
 export const workerLetter = isWorker ? 'W' : 'C';
 

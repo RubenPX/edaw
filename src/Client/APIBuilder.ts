@@ -1,4 +1,4 @@
-import type { ClientWorkerManager } from './ClientWorkerManager';
+import { EventBus } from '../Routes/EventBus';
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 export type ClientRouteDefinition<_returnType, paramsType> = { context: string, method: string, params?: paramsType }
@@ -9,7 +9,7 @@ export class APIBuilder<returnType, paramsType> {
 
 	constructor(
         public readonly route: ClientRouteDefinition<returnType, paramsType>,
-        public readonly client: ClientWorkerManager
+        public readonly client: EventBus
 	) {}
 
 	setFilter(filterName: string, filterFunction: (objeto: any) => boolean) {

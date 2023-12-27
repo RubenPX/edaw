@@ -1,38 +1,33 @@
 {
   "name": "edaw",
-  "private": true,
   "version": "0.0.0",
   "main": "./dist/edaw.cjs",
   "module": "./dist/edaw.mjs",
   "exports": {
     ".": {
       "require": "./dist/edaw.cjs",
-      "import": "./dist/edaw.mjs"
+      "import": "./dist/edaw.mjs",
+      "types": "./src/index.ts"
     }
   },
-  "types": "./dist/edaw.d.ts",
+  "types": "./src/index.ts",
   "scripts": {
-    "build": "rimraf dist && tsc && vite build && dts-bundle-generator --config ./dts-bundle-generator.config.ts",
-    "lint": "eslint . --ext .ts",
-    "format": "prettier . --write"
+    "dev": "rimraf dist && tsc && vite build -w",
+    "build": "rimraf dist && tsc && vite build",
+    "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.1",
-    "@types/node": "^20.4.9",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
-    "@typescript-eslint/parser": "^6.3.0",
-    "dts-bundle-generator": "^8.0.1",
-    "eslint": "^8.46.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.1",
-    "rimraf": "^5.0.1",
-    "stylelint": "^14.16.1",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-recommended": "^9.0.0",
-    "stylelint-prettier": "^3.0.0",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.9"
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vite": "^4.5.1",
+    "vite-plugin-dts": "^3.7.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.10.5",
+    "@types/uuid": "^9.0.7",
+    "uuid": "^9.0.1"
   }
 }
