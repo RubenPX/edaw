@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+  <PropertyGroup>
+    <BuildCommand>pnpm run build</BuildCommand>
+    <PublishAssetsDirectory>./dist</PublishAssetsDirectory>
+    <CleanCommand>pnpx rimraf ./dist</CleanCommand>
+    <StartupCommand>pnpm run dev</StartupCommand>
+  </PropertyGroup>
+</Project>
