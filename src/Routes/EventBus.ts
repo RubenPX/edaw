@@ -19,6 +19,8 @@ export type clientRoutesType<CTX extends EventBus> = {
 export abstract class EventBus {
 		protected abstract routes: { [key: string]: ContextRoute<any> }
 
+		protected logger = Logger;
+
 		public isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
 
 		protected constructor(public manager: Worker) {
@@ -30,7 +32,7 @@ export abstract class EventBus {
 		private onWorkerMessage(ev: MessageEvent<any>) {
 			const msg = EventMessage.parseMessageEvent(ev);
 
-			if ((isWorker && Logger.verbose.worker.showIn) || (!isWorker && Logger.verbose.browser.showIn)) {
+			if ((isWorker && this.logger.verbose.worker.showIn) || (!isWorker && this.logger.verbose.browser.showIn)) {
 				console.debug(...ConsolePrefix.reciveMsg, {
 					id         : { id: msg.id },
 					context    : msg.context,
@@ -53,7 +55,7 @@ export abstract class EventBus {
 		public postMessage<rtnOut, eparams>(msg: EventMessage<rtnOut, eparams>, markAsResolved: boolean = false) {
 			if (markAsResolved) msg.resolved = true;
 
-			if ((isWorker && Logger.verbose.worker.showOut) || (!isWorker && Logger.verbose.browser.showOut)) {
+			if ((isWorker && this.logger.verbose.worker.showOut) || (!isWorker && this.logger.verbose.browser.showOut)) {
 				console.debug(...ConsolePrefix.sendMsg, {
 					id         : { id: msg.id },
 					context    : msg.context,

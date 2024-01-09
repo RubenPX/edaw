@@ -1,5 +1,6 @@
 import type { ContextRoute, clientDefs } from '../Routes/ContextRoute';
 import { EventMessage } from '../Event/EventMessage';
+import { Logger } from '../Console/Logger';
 type EventMsgHandler<out, params> = {
     msgEvent: EventMessage<out, params>;
     clbk: (eventMsg: EventMessage<out, params>) => void;
@@ -12,6 +13,7 @@ export declare abstract class EventBus {
     protected abstract routes: {
         [key: string]: ContextRoute<any>;
     };
+    protected logger: typeof Logger;
     isWorker: boolean;
     protected constructor(manager: Worker);
     private onWorkerMessage;

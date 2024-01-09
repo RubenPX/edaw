@@ -4,11 +4,11 @@ export class Logger {
 	public static readonly verbose = {
 		worker: {
 			showIn  : false,
-			showOut : true
+			showOut : false
 		},
 		browser: {
 			showIn  : false,
-			showOut : true
+			showOut : false
 		}
 	};
 }

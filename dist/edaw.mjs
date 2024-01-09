@@ -1,47 +1,47 @@
 var I = Object.defineProperty;
 var O = (o, e, r) => e in o ? I(o, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : o[e] = r;
 var i = (o, e, r) => (O(o, typeof e != "symbol" ? e + "" : e, r), r);
-const p = {
+const h = {
   RoundedBorder: (o) => `border-left: 2px solid ${o}; border-right: 2px solid ${o}; padding: 0 4px; border-radius: 5px; `
-}, b = {
+}, p = {
   green: "color: #0d0; ",
   blue: "color: #0af; ",
   red: "color: #f20; ",
   orange: "color: #F80; ",
   purple: "color: #d602ee; "
-}, W = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope, f = W ? "W" : "C", m = {
-  sendMsg: [`%c${f}⮞`, b.orange + p.RoundedBorder("#F80")],
-  reciveMsg: [`%c${f}⮜`, b.green + p.RoundedBorder("#0d0")],
-  Error: [`%c${f}⭙`, b.red + p.RoundedBorder("#f20")],
-  ObserverRegister: [`%c${f}⭘`, b.purple + p.RoundedBorder("#d602ee")],
-  ObserverUnRegister: [`%c${f}⮾`, b.purple + p.RoundedBorder("#d602ee")]
-}, u = "padding-left: 5px; padding-right: 5px; padding-top: 2px;", E = "background-color: #38f; border-radius: 100px; color: #000;", v = "background-color: #492; border-radius: 100px; color: #000;", y = "background-color: #fa0; border-radius: 100px; color: #000;", D = "background-color: #f53; border-radius: 100px; color: #000;";
+}, W = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope, f = W ? "W" : "C", b = {
+  sendMsg: [`%c${f}⮞`, p.orange + h.RoundedBorder("#F80")],
+  reciveMsg: [`%c${f}⮜`, p.green + h.RoundedBorder("#0d0")],
+  Error: [`%c${f}⭙`, p.red + h.RoundedBorder("#f20")],
+  ObserverRegister: [`%c${f}⭘`, p.purple + h.RoundedBorder("#d602ee")],
+  ObserverUnRegister: [`%c${f}⮾`, p.purple + h.RoundedBorder("#d602ee")]
+}, d = "padding-left: 5px; padding-right: 5px; padding-top: 2px;", E = "background-color: #38f; border-radius: 100px; color: #000;", v = "background-color: #492; border-radius: 100px; color: #000;", y = "background-color: #fa0; border-radius: 100px; color: #000;", D = "background-color: #f53; border-radius: 100px; color: #000;";
 class U {
   static info(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${u} ${E}`, r] : ["%c" + e, `${u} ${E}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${E}`, r] : ["%c" + e, `${d} ${E}`, r];
   }
   static warn(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${u} ${D}`, r] : ["%c" + e, `${u} ${D}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${D}`, r] : ["%c" + e, `${d} ${D}`, r];
   }
   static yellow(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${u} ${y}`, r] : ["%c" + e, `${u} ${y}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${y}`, r] : ["%c" + e, `${d} ${y}`, r];
   }
   static succes(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${u} ${v}`, r] : ["%c" + e, `${u} ${v}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${v}`, r] : ["%c" + e, `${d} ${v}`, r];
   }
 }
-let w;
+let x;
 const j = new Uint8Array(16);
 function C() {
-  if (!w && (w = typeof crypto < "u" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto), !w))
+  if (!x && (x = typeof crypto < "u" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto), !x))
     throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-  return w(j);
+  return x(j);
 }
-const s = [];
+const n = [];
 for (let o = 0; o < 256; ++o)
-  s.push((o + 256).toString(16).slice(1));
+  n.push((o + 256).toString(16).slice(1));
 function S(o, e = 0) {
-  return s[o[e + 0]] + s[o[e + 1]] + s[o[e + 2]] + s[o[e + 3]] + "-" + s[o[e + 4]] + s[o[e + 5]] + "-" + s[o[e + 6]] + s[o[e + 7]] + "-" + s[o[e + 8]] + s[o[e + 9]] + "-" + s[o[e + 10]] + s[o[e + 11]] + s[o[e + 12]] + s[o[e + 13]] + s[o[e + 14]] + s[o[e + 15]];
+  return n[o[e + 0]] + n[o[e + 1]] + n[o[e + 2]] + n[o[e + 3]] + "-" + n[o[e + 4]] + n[o[e + 5]] + "-" + n[o[e + 6]] + n[o[e + 7]] + "-" + n[o[e + 8]] + n[o[e + 9]] + "-" + n[o[e + 10]] + n[o[e + 11]] + n[o[e + 12]] + n[o[e + 13]] + n[o[e + 14]] + n[o[e + 15]];
 }
 const B = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), R = {
   randomUUID: B
@@ -53,8 +53,8 @@ function N(o, e, r) {
   const t = o.random || (o.rng || C)();
   if (t[6] = t[6] & 15 | 64, t[8] = t[8] & 63 | 128, e) {
     r = r || 0;
-    for (let n = 0; n < 16; ++n)
-      e[r + n] = t[n];
+    for (let s = 0; s < 16; ++s)
+      e[r + s] = t[s];
     return e;
   }
   return S(t);
@@ -72,9 +72,9 @@ class a {
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseMessageEvent(e) {
-    const { id: r, context: t, method: n, params: d, ...l } = e.data;
-    if (t && n) {
-      const c = new a(t, n, d);
+    const { id: r, context: t, method: s, params: u, ...l } = e.data;
+    if (t && s) {
+      const c = new a(t, s, u);
       return c.id = r, c.resolved = l.resolved ?? !1, c.returnData = l.returnData ?? void 0, l.error && (c.error = l.error), c;
     } else {
       const c = new a("", "");
@@ -86,29 +86,30 @@ class a {
     return r.error = !0, r.returnData = e, r;
   }
 }
-class h {
+class w {
 }
 // @todo: make this variable dependient if is production or not
-i(h, "production", !1), i(h, "verbose", {
+i(w, "production", !1), i(w, "verbose", {
   worker: {
     showIn: !1,
-    showOut: !0
+    showOut: !1
   },
   browser: {
     showIn: !1,
-    showOut: !0
+    showOut: !1
   }
 });
-const g = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope;
+const m = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope;
 class G {
   constructor(e) {
+    i(this, "logger", w);
     i(this, "isWorker", typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope);
     i(this, "handlers", []);
     this.manager = e, e.addEventListener("message", (r) => this.onWorkerMessage(r)), e.addEventListener("error", (r) => this.onWorkerError(r)), e.addEventListener("messageerror", (r) => this.onWorkerMessage(r));
   }
   onWorkerMessage(e) {
     const r = a.parseMessageEvent(e);
-    (g && h.verbose.worker.showIn || !g && h.verbose.browser.showIn) && console.debug(...m.reciveMsg, {
+    (m && this.logger.verbose.worker.showIn || !m && this.logger.verbose.browser.showIn) && console.debug(...b.reciveMsg, {
       id: { id: r.id },
       context: r.context,
       method: r.method,
@@ -117,10 +118,10 @@ class G {
   }
   onWorkerError(e) {
     const r = a.parseErrorEvent(e);
-    console.error(...m.Error, { ev: e }), this.publish(r);
+    console.error(...b.Error, { ev: e }), this.publish(r);
   }
   postMessage(e, r = !1) {
-    r && (e.resolved = !0), (g && h.verbose.worker.showOut || !g && h.verbose.browser.showOut) && console.debug(...m.sendMsg, {
+    r && (e.resolved = !0), (m && this.logger.verbose.worker.showOut || !m && this.logger.verbose.browser.showOut) && console.debug(...b.sendMsg, {
       id: { id: e.id },
       context: e.context,
       method: e.method,
@@ -134,8 +135,8 @@ class G {
     r.length !== 0 ? r.forEach(async (t) => {
       try {
         e.returnData = (await t.runEvent(this, e)).returnData;
-      } catch (n) {
-        e.error = !0, e.returnData = n;
+      } catch (s) {
+        e.error = !0, e.returnData = s;
       }
       this.postMessage(e, !0);
     }) : (e.error = !0, e.returnData = new Error("Route not found"), this.postMessage(e, !0));
@@ -146,11 +147,11 @@ class G {
       t.clbk(e);
   }
   offMessage(e) {
-    this.handlers = this.handlers.filter((r) => r.msgEvent.id !== e.id), console.debug(...m.ObserverUnRegister, e.id);
+    this.handlers = this.handlers.filter((r) => r.msgEvent.id !== e.id), console.debug(...b.ObserverUnRegister, e.id);
   }
   onMessage(e, r) {
     const t = e;
-    return this.handlers.push({ msgEvent: t, clbk: r }), console.debug(...m.ObserverRegister, t.id, { context: e.context, method: e.method }), t;
+    return this.handlers.push({ msgEvent: t, clbk: r }), console.debug(...b.ObserverRegister, t.id, { context: e.context, method: e.method }), t;
   }
   observe(e, r) {
     const t = new a(e.context, e.method, e.params);
@@ -158,17 +159,17 @@ class G {
   }
   // eslint-disable-next-line max-len
   postReturn(e, r, t) {
-    const n = new a(e, r, t), d = new Promise((l, c) => {
-      this.onMessage(n, (x) => {
-        n.id === x.id && (x.error ? c(x.returnData) : l(x), this.offMessage(n));
+    const s = new a(e, r, t), u = new Promise((l, c) => {
+      this.onMessage(s, (g) => {
+        s.id === g.id && (g.error ? c(g.returnData) : l(g), this.offMessage(s));
       });
     });
-    return this.postMessage(n), d;
+    return this.postMessage(s), u;
   }
   async postInitialize() {
-    console.groupCollapsed(`${g ? "Worker" : "Client"} route registers`), Object.entries(this.routes).forEach(([r, t]) => {
-      Object.entries(t.EventRoutes).forEach(([n, d]) => {
-        console.debug(...U.info("routeRegister", { context: t.contextName, method: n }));
+    console.groupCollapsed(`${m ? "Worker" : "Client"} route registers`), Object.entries(this.routes).forEach(([r, t]) => {
+      Object.entries(t.EventRoutes).forEach(([s, u]) => {
+        console.debug(...U.info("routeRegister", { context: t.contextName, method: s }));
       });
     }), console.groupEnd();
     const e = new a("root", "initialized");
@@ -193,11 +194,11 @@ class k {
 }
 class z {
   async runEvent(e, r) {
-    const t = Object.entries(this.EventRoutes).find(([d]) => d === r.method);
+    const t = Object.entries(this.EventRoutes).find(([u]) => u === r.method);
     if (!t)
       throw new Error("Method not found");
-    const n = t[1];
-    return r.returnData = await n.run({ repo: this.repos, evMsg: r, params: r.params, bus: e }), r;
+    const s = t[1];
+    return r.returnData = await s.run({ repo: this.repos, evMsg: r, params: r.params, bus: e }), r;
   }
   getRoutes() {
     return Object.entries(this.EventRoutes).reduce((e, [r, t]) => (e[r] = { context: this.contextName, method: r }, e), {});
@@ -260,7 +261,7 @@ class V {
     i(this, "reactIDs", []);
   }
   onUpdate(e, r) {
-    const t = this.reactIDs.findIndex((n) => n.id == e);
+    const t = this.reactIDs.findIndex((s) => s.id == e);
     if (t == -1) {
       this.reactIDs.push({ id: e, callback: r });
       return;
@@ -282,5 +283,5 @@ export {
   a as EventMessage,
   k as EventRunner,
   V as ReactiveClass,
-  g as isWorker
+  m as isWorker
 };
