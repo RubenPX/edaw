@@ -134,7 +134,7 @@ export abstract class EventBus {
 
 		protected async postInitialize() {
 			// Register all evento to be routed
-			console.groupCollapsed("Worker route registers");
+			console.groupCollapsed(`${isWorker ? 'Worker' : 'Client'} route registers`);
 	
 			Object.entries(this.routes).forEach(([_, ctx]) => {
 				Object.entries(ctx.EventRoutes).forEach(([methodName, _]) => {

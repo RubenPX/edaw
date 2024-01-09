@@ -1,25 +1,24 @@
 import { EventBus } from "edaw";
 
 // Repos
-import { CounterFeature } from "./Counter/CounterFeature";
+import { LocalStorageNotesRepository } from "./Notes/infrastructure/LocalStorageRepository";
 
 // Routes
-import { CounterMemory } from "./Counter/infrastructure/CounterMemory";
+import { NotesFeature } from "./Notes";
 
 export class WorkerManager extends EventBus {
   protected routes!: {
-    CounterFeature: CounterFeature;
+    Notes: NotesFeature;
   };
-
 
   private constructor(worker: Worker) {
     super(worker);
   }
 
   private static async initializeDBs(bus: EventBus) {
-    const counterMemory = new CounterMemory();
+    const LocalStorageRepo = new LocalStorageNotesRepository(bus);
 
-    return { counterMemory };
+    return { LocalStorageRepo };
   }
 
   public static async initialize(worker: Worker) {
@@ -28,7 +27,7 @@ export class WorkerManager extends EventBus {
     const dbs = await this.initializeDBs(bus);
 
     bus.routes = {
-      CounterFeature: new CounterFeature(dbs.counterMemory),
+      Notes: new NotesFeature(dbs.LocalStorageRepo),
     } satisfies WorkerManager["routes"];
 
     bus.postInitialize();

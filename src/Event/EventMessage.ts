@@ -14,6 +14,10 @@ export class EventMessage<out, eparams> {
         public params?: eparams
 	) {}
 
+	public static regenerate<rOut, eParams>(evMsg: EventMessage<rOut, eParams>) {
+		return new EventMessage(evMsg.context, evMsg.method, evMsg.params);
+	}
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public static parseMessageEvent<rtnOut, prms>(ev: MessageEvent<any>): EventMessage<rtnOut, prms> {
 		const { id, context, method, params, ...rest } = ev.data;

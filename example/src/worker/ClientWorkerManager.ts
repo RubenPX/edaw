@@ -1,11 +1,14 @@
 import { APIBuilder, type ClientRouteDefinition, ContextRoute, EventBus, type clientRoutesType } from 'edaw';
+import { LocalStorageNotesClientContext } from './Notes/infrastructure/LocalStorageRepository';
+import type { WorkerManager } from './WorkerManager';
+import WorkerThread from './WorkerManager?worker';
 
-import "./DebugUI";
+// import "./DebugUI";
 
 export class ClientWorkerManager extends EventBus {
   protected routes: { [key: string]: ContextRoute<any>; };
 
-  public Routes!: clientRoutesType<this>;
+  public Routes!: clientRoutesType<WorkerManager>;
 
   public initialized = false;
 
@@ -15,12 +18,14 @@ export class ClientWorkerManager extends EventBus {
     console.groupCollapsed('Worker init');
 
     this.routes = {
-      session: new ClientCookieRepository()
+      session: new LocalStorageNotesClientContext()
     };
 
     this.postInitialize();
+
     this.observe({ context: 'root', method: 'initialized' }, (evMsg) => {
       if (evMsg.returnData) this.Routes = evMsg.returnData;
+      else console.warn("Routes request is empty...");
       this.offMessage(evMsg);
       console.groupEnd();
       this.initialized = true;
@@ -47,3 +52,5 @@ export class ClientWorkerManager extends EventBus {
     return this.instance;
   }
 }
+
+export const WorkerInstance = ClientWorkerManager.getInstance(new WorkerThread());
