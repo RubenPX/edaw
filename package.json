@@ -7,10 +7,10 @@
     ".": {
       "require": "./dist/edaw.cjs",
       "import": "./dist/edaw.mjs",
-      "types": "./src/index.ts"
+      "types": "./dist/index.d.ts"
     }
   },
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "rimraf dist && tsc && vite build -w",
     "build": "rimraf dist && tsc && vite build",
