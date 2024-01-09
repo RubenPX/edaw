@@ -3,12 +3,16 @@ export class Logger {
 	public static readonly production = false;
 	public static readonly verbose = {
 		worker: {
-			showIn  : false,
-			showOut : false
+			observe   : false,
+			unObserve : false,
+			showIn    : false,
+			showOut   : false
 		},
 		browser: {
-			showIn  : false,
-			showOut : false
+			observe   : false,
+			unObserve : false,
+			showIn    : false,
+			showOut   : false
 		}
 	};
 }

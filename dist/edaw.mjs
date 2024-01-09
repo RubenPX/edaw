@@ -1,24 +1,24 @@
-var I = Object.defineProperty;
-var O = (o, e, r) => e in o ? I(o, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : o[e] = r;
-var i = (o, e, r) => (O(o, typeof e != "symbol" ? e + "" : e, r), r);
-const h = {
+var O = Object.defineProperty;
+var I = (o, e, r) => e in o ? O(o, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : o[e] = r;
+var i = (o, e, r) => (I(o, typeof e != "symbol" ? e + "" : e, r), r);
+const p = {
   RoundedBorder: (o) => `border-left: 2px solid ${o}; border-right: 2px solid ${o}; padding: 0 4px; border-radius: 5px; `
-}, p = {
+}, b = {
   green: "color: #0d0; ",
   blue: "color: #0af; ",
   red: "color: #f20; ",
   orange: "color: #F80; ",
   purple: "color: #d602ee; "
-}, W = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope, f = W ? "W" : "C", b = {
-  sendMsg: [`%c${f}⮞`, p.orange + h.RoundedBorder("#F80")],
-  reciveMsg: [`%c${f}⮜`, p.green + h.RoundedBorder("#0d0")],
-  Error: [`%c${f}⭙`, p.red + h.RoundedBorder("#f20")],
-  ObserverRegister: [`%c${f}⭘`, p.purple + h.RoundedBorder("#d602ee")],
-  ObserverUnRegister: [`%c${f}⮾`, p.purple + h.RoundedBorder("#d602ee")]
-}, d = "padding-left: 5px; padding-right: 5px; padding-top: 2px;", E = "background-color: #38f; border-radius: 100px; color: #000;", v = "background-color: #492; border-radius: 100px; color: #000;", y = "background-color: #fa0; border-radius: 100px; color: #000;", D = "background-color: #f53; border-radius: 100px; color: #000;";
+}, W = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope, f = W ? "W" : "C", g = {
+  sendMsg: [`%c${f}⮞`, b.orange + p.RoundedBorder("#F80")],
+  reciveMsg: [`%c${f}⮜`, b.green + p.RoundedBorder("#0d0")],
+  Error: [`%c${f}⭙`, b.red + p.RoundedBorder("#f20")],
+  ObserverRegister: [`%c${f}⭘`, b.purple + p.RoundedBorder("#d602ee")],
+  ObserverUnRegister: [`%c${f}⮾`, b.purple + p.RoundedBorder("#d602ee")]
+}, d = "padding-left: 5px; padding-right: 5px; padding-top: 2px;", v = "background-color: #38f; border-radius: 100px; color: #000;", E = "background-color: #492; border-radius: 100px; color: #000;", y = "background-color: #fa0; border-radius: 100px; color: #000;", D = "background-color: #f53; border-radius: 100px; color: #000;";
 class U {
   static info(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${E}`, r] : ["%c" + e, `${d} ${E}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${v}`, r] : ["%c" + e, `${d} ${v}`, r];
   }
   static warn(e, r = "") {
     return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${D}`, r] : ["%c" + e, `${d} ${D}`, r];
@@ -27,15 +27,15 @@ class U {
     return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${y}`, r] : ["%c" + e, `${d} ${y}`, r];
   }
   static succes(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${v}`, r] : ["%c" + e, `${d} ${v}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${d} ${E}`, r] : ["%c" + e, `${d} ${E}`, r];
   }
 }
-let x;
+let w;
 const j = new Uint8Array(16);
 function C() {
-  if (!x && (x = typeof crypto < "u" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto), !x))
+  if (!w && (w = typeof crypto < "u" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto), !w))
     throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-  return x(j);
+  return w(j);
 }
 const n = [];
 for (let o = 0; o < 256; ++o)
@@ -43,12 +43,12 @@ for (let o = 0; o < 256; ++o)
 function S(o, e = 0) {
   return n[o[e + 0]] + n[o[e + 1]] + n[o[e + 2]] + n[o[e + 3]] + "-" + n[o[e + 4]] + n[o[e + 5]] + "-" + n[o[e + 6]] + n[o[e + 7]] + "-" + n[o[e + 8]] + n[o[e + 9]] + "-" + n[o[e + 10]] + n[o[e + 11]] + n[o[e + 12]] + n[o[e + 13]] + n[o[e + 14]] + n[o[e + 15]];
 }
-const B = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), R = {
+const B = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), k = {
   randomUUID: B
 };
 function N(o, e, r) {
-  if (R.randomUUID && !e && !o)
-    return R.randomUUID();
+  if (k.randomUUID && !e && !o)
+    return k.randomUUID();
   o = o || {};
   const t = o.random || (o.rng || C)();
   if (t[6] = t[6] & 15 | 64, t[8] = t[8] & 63 | 128, e) {
@@ -59,7 +59,7 @@ function N(o, e, r) {
   }
   return S(t);
 }
-class a {
+class c {
   constructor(e, r, t) {
     i(this, "id", N());
     i(this, "returnData");
@@ -68,48 +68,52 @@ class a {
     this.context = e, this.method = r, this.params = t;
   }
   static regenerate(e) {
-    return new a(e.context, e.method, e.params);
+    return new c(e.context, e.method, e.params);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseMessageEvent(e) {
-    const { id: r, context: t, method: s, params: u, ...l } = e.data;
+    const { id: r, context: t, method: s, params: l, ...h } = e.data;
     if (t && s) {
-      const c = new a(t, s, u);
-      return c.id = r, c.resolved = l.resolved ?? !1, c.returnData = l.returnData ?? void 0, l.error && (c.error = l.error), c;
+      const a = new c(t, s, l);
+      return a.id = r, a.resolved = h.resolved ?? !1, a.returnData = h.returnData ?? void 0, h.error && (a.error = h.error), a;
     } else {
-      const c = new a("", "");
-      return c.error = !0, c.returnData = e.data, c;
+      const a = new c("", "");
+      return a.error = !0, a.returnData = e.data, a;
     }
   }
   static parseErrorEvent(e) {
-    const r = new a("", "");
+    const r = new c("", "");
     return r.error = !0, r.returnData = e, r;
   }
 }
-class w {
+class x {
 }
 // @todo: make this variable dependient if is production or not
-i(w, "production", !1), i(w, "verbose", {
+i(x, "production", !1), i(x, "verbose", {
   worker: {
+    observe: !1,
+    unObserve: !1,
     showIn: !1,
     showOut: !1
   },
   browser: {
+    observe: !1,
+    unObserve: !1,
     showIn: !1,
     showOut: !1
   }
 });
-const m = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope;
+const u = typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope;
 class G {
   constructor(e) {
-    i(this, "logger", w);
+    i(this, "logger", x);
     i(this, "isWorker", typeof WorkerGlobalScope < "u" && self instanceof WorkerGlobalScope);
     i(this, "handlers", []);
     this.manager = e, e.addEventListener("message", (r) => this.onWorkerMessage(r)), e.addEventListener("error", (r) => this.onWorkerError(r)), e.addEventListener("messageerror", (r) => this.onWorkerMessage(r));
   }
   onWorkerMessage(e) {
-    const r = a.parseMessageEvent(e);
-    (m && this.logger.verbose.worker.showIn || !m && this.logger.verbose.browser.showIn) && console.debug(...b.reciveMsg, {
+    const r = c.parseMessageEvent(e);
+    (u && this.logger.verbose.worker.showIn || !u && this.logger.verbose.browser.showIn) && console.debug(...g.reciveMsg, {
       id: { id: r.id },
       context: r.context,
       method: r.method,
@@ -117,11 +121,11 @@ class G {
     }), this.publish(r);
   }
   onWorkerError(e) {
-    const r = a.parseErrorEvent(e);
-    console.error(...b.Error, { ev: e }), this.publish(r);
+    const r = c.parseErrorEvent(e);
+    console.error(...g.Error, { ev: e }), this.publish(r);
   }
   postMessage(e, r = !1) {
-    r && (e.resolved = !0), (m && this.logger.verbose.worker.showOut || !m && this.logger.verbose.browser.showOut) && console.debug(...b.sendMsg, {
+    r && (e.resolved = !0), (u && this.logger.verbose.worker.showOut || !u && this.logger.verbose.browser.showOut) && console.debug(...g.sendMsg, {
       id: { id: e.id },
       context: e.context,
       method: e.method,
@@ -147,39 +151,39 @@ class G {
       t.clbk(e);
   }
   offMessage(e) {
-    this.handlers = this.handlers.filter((r) => r.msgEvent.id !== e.id), console.debug(...b.ObserverUnRegister, e.id);
+    this.handlers = this.handlers.filter((r) => r.msgEvent.id !== e.id), (u && this.logger.verbose.worker.unObserve || !u && this.logger.verbose.browser.unObserve) && console.debug(...g.ObserverUnRegister, e.id);
   }
   onMessage(e, r) {
     const t = e;
-    return this.handlers.push({ msgEvent: t, clbk: r }), console.debug(...b.ObserverRegister, t.id, { context: e.context, method: e.method }), t;
+    return this.handlers.push({ msgEvent: t, clbk: r }), (u && this.logger.verbose.worker.observe || !u && this.logger.verbose.browser.observe) && console.debug(...g.ObserverRegister, t.id, { context: e.context, method: e.method }), t;
   }
   observe(e, r) {
-    const t = new a(e.context, e.method, e.params);
+    const t = new c(e.context, e.method, e.params);
     return this.onMessage(t, r);
   }
   // eslint-disable-next-line max-len
   postReturn(e, r, t) {
-    const s = new a(e, r, t), u = new Promise((l, c) => {
-      this.onMessage(s, (g) => {
-        s.id === g.id && (g.error ? c(g.returnData) : l(g), this.offMessage(s));
+    const s = new c(e, r, t), l = new Promise((h, a) => {
+      this.onMessage(s, (m) => {
+        s.id === m.id && (m.error ? a(m.returnData) : h(m), this.offMessage(s));
       });
     });
-    return this.postMessage(s), u;
+    return this.postMessage(s), l;
   }
   async postInitialize() {
-    console.groupCollapsed(`${m ? "Worker" : "Client"} route registers`), Object.entries(this.routes).forEach(([r, t]) => {
-      Object.entries(t.EventRoutes).forEach(([s, u]) => {
+    console.groupCollapsed(`${u ? "Worker" : "Client"} route registers`), Object.entries(this.routes).forEach(([r, t]) => {
+      Object.entries(t.EventRoutes).forEach(([s, l]) => {
         console.debug(...U.info("routeRegister", { context: t.contextName, method: s }));
       });
     }), console.groupEnd();
-    const e = new a("root", "initialized");
+    const e = new c("root", "initialized");
     e.returnData = this.getClientRoutes(), e.resolved = !0, this.postMessage(e, !0);
   }
   getClientRoutes() {
     return Object.entries(this.routes).reduce((e, [r, t]) => (e[r] = t.getRoutes(), e), {});
   }
 }
-class k {
+class R {
   constructor(e, r) {
     this.repo = e, this.run = r;
   }
@@ -189,12 +193,12 @@ class k {
     return await this.run({ repo: this.repo, params: e.params, bus: r, evMsg: e });
   }
   static prepareEvent(e) {
-    return (r) => new k(r ?? NaN, e);
+    return (r) => new R(r ?? NaN, e);
   }
 }
 class z {
   async runEvent(e, r) {
-    const t = Object.entries(this.EventRoutes).find(([u]) => u === r.method);
+    const t = Object.entries(this.EventRoutes).find(([l]) => l === r.method);
     if (!t)
       throw new Error("Method not found");
     const s = t[1];
@@ -280,8 +284,8 @@ export {
   $ as APIRunner,
   z as ContextRoute,
   G as EventBus,
-  a as EventMessage,
-  k as EventRunner,
+  c as EventMessage,
+  R as EventRunner,
   V as ReactiveClass,
-  m as isWorker
+  u as isWorker
 };

@@ -97,14 +97,21 @@ export abstract class EventBus {
 
 		public offMessage(eventMsg: EventMessage<any, any>): void {
 			this.handlers = this.handlers.filter(h => h.msgEvent.id !== eventMsg.id);
-			console.debug(...ConsolePrefix.ObserverUnRegister, eventMsg.id);
+			
+			if ((isWorker && this.logger.verbose.worker.unObserve) || (!isWorker && this.logger.verbose.browser.unObserve)) {
+				console.debug(...ConsolePrefix.ObserverUnRegister, eventMsg.id);
+			}
+
+			
 		}
 
 		protected onMessage<rtnOut, eparams>(evMsg: EventMessage<rtnOut, eparams>, clbk: (msg: EventMessage<rtnOut, eparams>) => void) {
 			const newMessage = evMsg;
 
 			this.handlers.push({ msgEvent: newMessage, clbk });
-			console.debug(...ConsolePrefix.ObserverRegister, newMessage.id, { context: evMsg.context, method: evMsg.method });
+			if ((isWorker && this.logger.verbose.worker.observe) || (!isWorker && this.logger.verbose.browser.observe)) {
+				console.debug(...ConsolePrefix.ObserverRegister, newMessage.id, { context: evMsg.context, method: evMsg.method });
+			}
 
 			return newMessage;
 		}
