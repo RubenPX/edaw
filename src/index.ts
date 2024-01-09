@@ -12,7 +12,8 @@ export * from "./Client/APIRunner";
 // Client definitions
 export type * from "./Routes/ContextRoute";
 
-// Reactive
+// utils
+export * from "./utils/isWorker";
 export * from "./utils/ReactiveClass";
 
 

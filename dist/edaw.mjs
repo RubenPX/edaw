@@ -281,5 +281,6 @@ export {
   G as EventBus,
   a as EventMessage,
   k as EventRunner,
-  V as ReactiveClass
+  V as ReactiveClass,
+  g as isWorker
 };
