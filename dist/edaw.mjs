@@ -37,11 +37,11 @@ function C() {
     throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
   return w(j);
 }
-const n = [];
+const s = [];
 for (let o = 0; o < 256; ++o)
-  n.push((o + 256).toString(16).slice(1));
+  s.push((o + 256).toString(16).slice(1));
 function S(o, e = 0) {
-  return n[o[e + 0]] + n[o[e + 1]] + n[o[e + 2]] + n[o[e + 3]] + "-" + n[o[e + 4]] + n[o[e + 5]] + "-" + n[o[e + 6]] + n[o[e + 7]] + "-" + n[o[e + 8]] + n[o[e + 9]] + "-" + n[o[e + 10]] + n[o[e + 11]] + n[o[e + 12]] + n[o[e + 13]] + n[o[e + 14]] + n[o[e + 15]];
+  return s[o[e + 0]] + s[o[e + 1]] + s[o[e + 2]] + s[o[e + 3]] + "-" + s[o[e + 4]] + s[o[e + 5]] + "-" + s[o[e + 6]] + s[o[e + 7]] + "-" + s[o[e + 8]] + s[o[e + 9]] + "-" + s[o[e + 10]] + s[o[e + 11]] + s[o[e + 12]] + s[o[e + 13]] + s[o[e + 14]] + s[o[e + 15]];
 }
 const B = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), R = {
   randomUUID: B
@@ -53,8 +53,8 @@ function N(o, e, r) {
   const t = o.random || (o.rng || C)();
   if (t[6] = t[6] & 15 | 64, t[8] = t[8] & 63 | 128, e) {
     r = r || 0;
-    for (let s = 0; s < 16; ++s)
-      e[r + s] = t[s];
+    for (let n = 0; n < 16; ++n)
+      e[r + n] = t[n];
     return e;
   }
   return S(t);
@@ -67,11 +67,14 @@ class a {
     i(this, "resolved", !1);
     this.context = e, this.method = r, this.params = t;
   }
+  static regenerate(e) {
+    return new a(e.context, e.method, e.params);
+  }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static parseMessageEvent(e) {
-    const { id: r, context: t, method: s, params: d, ...l } = e.data;
-    if (t && s) {
-      const c = new a(t, s, d);
+    const { id: r, context: t, method: n, params: d, ...l } = e.data;
+    if (t && n) {
+      const c = new a(t, n, d);
       return c.id = r, c.resolved = l.resolved ?? !1, c.returnData = l.returnData ?? void 0, l.error && (c.error = l.error), c;
     } else {
       const c = new a("", "");
@@ -131,8 +134,8 @@ class G {
     r.length !== 0 ? r.forEach(async (t) => {
       try {
         e.returnData = (await t.runEvent(this, e)).returnData;
-      } catch (s) {
-        e.error = !0, e.returnData = s;
+      } catch (n) {
+        e.error = !0, e.returnData = n;
       }
       this.postMessage(e, !0);
     }) : (e.error = !0, e.returnData = new Error("Route not found"), this.postMessage(e, !0));
@@ -155,17 +158,17 @@ class G {
   }
   // eslint-disable-next-line max-len
   postReturn(e, r, t) {
-    const s = new a(e, r, t), d = new Promise((l, c) => {
-      this.onMessage(s, (x) => {
-        s.id === x.id && (x.error ? c(x.returnData) : l(x), this.offMessage(s));
+    const n = new a(e, r, t), d = new Promise((l, c) => {
+      this.onMessage(n, (x) => {
+        n.id === x.id && (x.error ? c(x.returnData) : l(x), this.offMessage(n));
       });
     });
-    return this.postMessage(s), d;
+    return this.postMessage(n), d;
   }
   async postInitialize() {
     console.groupCollapsed(`${g ? "Worker" : "Client"} route registers`), Object.entries(this.routes).forEach(([r, t]) => {
-      Object.entries(t.EventRoutes).forEach(([s, d]) => {
-        console.debug(...U.info("routeRegister", { context: t.contextName, method: s }));
+      Object.entries(t.EventRoutes).forEach(([n, d]) => {
+        console.debug(...U.info("routeRegister", { context: t.contextName, method: n }));
       });
     }), console.groupEnd();
     const e = new a("root", "initialized");
@@ -188,13 +191,13 @@ class k {
     return (r) => new k(r ?? NaN, e);
   }
 }
-class M {
+class z {
   async runEvent(e, r) {
     const t = Object.entries(this.EventRoutes).find(([d]) => d === r.method);
     if (!t)
       throw new Error("Method not found");
-    const s = t[1];
-    return r.returnData = await s.run({ repo: this.repos, evMsg: r, params: r.params, bus: e }), r;
+    const n = t[1];
+    return r.returnData = await n.run({ repo: this.repos, evMsg: r, params: r.params, bus: e }), r;
   }
   getRoutes() {
     return Object.entries(this.EventRoutes).reduce((e, [r, t]) => (e[r] = { context: this.contextName, method: r }, e), {});
@@ -252,12 +255,12 @@ class $ {
     return new $(t);
   }
 }
-class z {
+class V {
   constructor() {
     i(this, "reactIDs", []);
   }
   onUpdate(e, r) {
-    const t = this.reactIDs.findIndex((s) => s.id == e);
+    const t = this.reactIDs.findIndex((n) => n.id == e);
     if (t == -1) {
       this.reactIDs.push({ id: e, callback: r });
       return;
@@ -274,8 +277,9 @@ class z {
 export {
   A as APIBuilder,
   $ as APIRunner,
-  M as ContextRoute,
+  z as ContextRoute,
   G as EventBus,
+  a as EventMessage,
   k as EventRunner,
-  z as ReactiveClass
+  V as ReactiveClass
 };
