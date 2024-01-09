@@ -28,6 +28,7 @@
     float: left;
     padding: 10px;
     margin: 10px;
+    margin-bottom: 0;
     background-color: var(--color);
     border-radius: 10px;
     width: 250px;
