@@ -15,27 +15,27 @@ const p = {
   Error: [`%c${f}⭙`, b.red + p.RoundedBorder("#f20")],
   ObserverRegister: [`%c${f}⭘`, b.purple + p.RoundedBorder("#d602ee")],
   ObserverUnRegister: [`%c${f}⮾`, b.purple + p.RoundedBorder("#d602ee")]
-}, h = "padding-left: 5px; padding-right: 5px; padding-top: 2px;", x = "background-color: #38f; border-radius: 100px; color: #000;", E = "background-color: #492; border-radius: 100px; color: #000;", y = "background-color: #fa0; border-radius: 100px; color: #000;", D = "background-color: #f53; border-radius: 100px; color: #000;";
+}, h = "padding-left: 5px; padding-right: 5px; padding-top: 2px;", x = "background-color: #38f; border-radius: 100px; color: #000;", E = "background-color: #492; border-radius: 100px; color: #000;", D = "background-color: #fa0; border-radius: 100px; color: #000;", k = "background-color: #f53; border-radius: 100px; color: #000;";
 class U {
   static info(e, r = "") {
     return e instanceof Array ? ["%c" + e.join(" | "), `${h} ${x}`, r] : ["%c" + e, `${h} ${x}`, r];
   }
   static warn(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${h} ${D}`, r] : ["%c" + e, `${h} ${D}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${h} ${k}`, r] : ["%c" + e, `${h} ${k}`, r];
   }
   static yellow(e, r = "") {
-    return e instanceof Array ? ["%c" + e.join(" | "), `${h} ${y}`, r] : ["%c" + e, `${h} ${y}`, r];
+    return e instanceof Array ? ["%c" + e.join(" | "), `${h} ${D}`, r] : ["%c" + e, `${h} ${D}`, r];
   }
   static succes(e, r = "") {
     return e instanceof Array ? ["%c" + e.join(" | "), `${h} ${E}`, r] : ["%c" + e, `${h} ${E}`, r];
   }
 }
 let w;
-const C = new Uint8Array(16);
-function j() {
+const j = new Uint8Array(16);
+function C() {
   if (!w && (w = typeof crypto < "u" && crypto.getRandomValues && crypto.getRandomValues.bind(crypto), !w))
     throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-  return w(C);
+  return w(j);
 }
 const n = [];
 for (let o = 0; o < 256; ++o)
@@ -43,14 +43,14 @@ for (let o = 0; o < 256; ++o)
 function S(o, e = 0) {
   return n[o[e + 0]] + n[o[e + 1]] + n[o[e + 2]] + n[o[e + 3]] + "-" + n[o[e + 4]] + n[o[e + 5]] + "-" + n[o[e + 6]] + n[o[e + 7]] + "-" + n[o[e + 8]] + n[o[e + 9]] + "-" + n[o[e + 10]] + n[o[e + 11]] + n[o[e + 12]] + n[o[e + 13]] + n[o[e + 14]] + n[o[e + 15]];
 }
-const B = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), k = {
+const B = typeof crypto < "u" && crypto.randomUUID && crypto.randomUUID.bind(crypto), y = {
   randomUUID: B
 };
-function A(o, e, r) {
-  if (k.randomUUID && !e && !o)
-    return k.randomUUID();
+function N(o, e, r) {
+  if (y.randomUUID && !e && !o)
+    return y.randomUUID();
   o = o || {};
-  const t = o.random || (o.rng || j)();
+  const t = o.random || (o.rng || C)();
   if (t[6] = t[6] & 15 | 64, t[8] = t[8] & 63 | 128, e) {
     r = r || 0;
     for (let s = 0; s < 16; ++s)
@@ -61,7 +61,7 @@ function A(o, e, r) {
 }
 class d {
   constructor(e, r, t) {
-    a(this, "id", A());
+    a(this, "id", N());
     a(this, "returnData");
     a(this, "error", !1);
     a(this, "resolved", !1);
@@ -140,14 +140,13 @@ class G {
       try {
         e.returnData = (await t.runEvent(this, e)).returnData;
       } catch (s) {
-        e.error = !0, e.returnData = s;
+        e.error = !0, e.returnData = s, s instanceof Error && (e.returnData = { message: s.message, stack: s.stack }), s instanceof Object && (e.returnData = { ...s, ...e.returnData });
       }
       this.postMessage(e, !0);
     }) : (e.error = !0, e.returnData = new Error("Route not found"), this.postMessage(e, !0));
   }
   dispatchEvent(e) {
     const r = this.handlers.filter((t) => t.msgEvent.context === e.context && t.msgEvent.method === e.method);
-    console.warn("DISPATCH", r.length, e);
     for (const t of r)
       t.clbk(e);
   }
@@ -209,7 +208,7 @@ class z {
     return Object.entries(this.EventRoutes).reduce((e, [r, t]) => (e[r] = { context: this.contextName, method: r }, e), {});
   }
 }
-class N {
+class A {
   constructor(e, r) {
     a(this, "filters", {});
     a(this, "sorter", null);
@@ -261,11 +260,11 @@ class O {
     )).returnData;
   }
   static instanceBasic(e, r) {
-    const t = new N(r, e);
+    const t = new A(r, e);
     return new O(t);
   }
 }
-class P {
+class V {
   constructor() {
     a(this, "reactIDs", []);
   }
@@ -285,12 +284,12 @@ class P {
   }
 }
 export {
-  N as APIBuilder,
+  A as APIBuilder,
   O as APIRunner,
   z as ContextRoute,
   G as EventBus,
   d as EventMessage,
   R as EventRunner,
-  P as ReactiveClass,
+  V as ReactiveClass,
   l as isWorker
 };
