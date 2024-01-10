@@ -80,6 +80,8 @@ export abstract class EventBus {
 					} catch (error) {
 						evMsg.error = true;
 						evMsg.returnData = error as rtnOut;
+						if (error instanceof Error) evMsg.returnData = {message: error.message, stack: error.stack} as rtnOut;
+						if (error instanceof Object) evMsg.returnData = {...error, ...evMsg.returnData} as rtnOut;
 					}
 					this.postMessage(evMsg, true);
 				});
