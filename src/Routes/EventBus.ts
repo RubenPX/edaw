@@ -101,8 +101,6 @@ export abstract class EventBus {
 			if ((isWorker && this.logger.verbose.worker.unObserve) || (!isWorker && this.logger.verbose.browser.unObserve)) {
 				console.debug(...ConsolePrefix.ObserverUnRegister, eventMsg.id);
 			}
-
-			
 		}
 
 		protected onMessage<rtnOut, eparams>(evMsg: EventMessage<rtnOut, eparams>, clbk: (msg: EventMessage<rtnOut, eparams>) => void) {

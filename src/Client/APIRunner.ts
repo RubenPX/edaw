@@ -6,19 +6,32 @@ export class APIRunner<returnType, paramsType> {
 	constructor(private builder: APIBuilder<returnType, paramsType>) {}
 
 	observe(callback: (data: EventMessage<returnType, paramsType>) => void) {
-		const evMsg = this.builder.client.observe({
+		let errClbk: ((data: EventMessage<Error, paramsType>) => void) | undefined = undefined;
+
+		const handleRequest = (evMsg: EventMessage<returnType, paramsType>) => {
+			if (evMsg.error && errClbk) errClbk(evMsg as EventMessage<Error, paramsType>);
+			else callback(evMsg);
+		};
+
+		const evMsg = this.builder.client.observe<returnType, paramsType>({
 			context : this.builder.route.context,
 			method  : this.builder.route.method,
 			params  : this.builder.route.params
-		}, callback);
+		}, handleRequest);
 
-		return {
-			postEvent      : (params?: paramsType) => this.postObserveMessage(evMsg, params),
-			removeObserver : () => this.builder.client.offMessage(evMsg)
+		const rtn = {
+			postEvent      : (params?: paramsType) => this.postObserveMessage(evMsg, params as paramsType),
+			removeObserver : () => this.builder.client.offMessage(evMsg),
+			catch          : (clbkErr: (data: EventMessage<Error, paramsType>) => void) => {
+				errClbk = clbkErr;
+				return { postEvent: rtn.postEvent, removeObsever: rtn.removeObserver };
+			}
 		};
+
+		return rtn;
 	}
 
-	private async postObserveMessage<returnType, paramsType>(evMsg: EventMessage<returnType, paramsType>, params: paramsType) {
+	private postObserveMessage(evMsg: EventMessage<returnType, paramsType>, params: paramsType) {
 		evMsg.params = params;
 		this.builder.client.postMessage(evMsg);
 	}

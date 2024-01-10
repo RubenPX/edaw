@@ -5,8 +5,12 @@ export declare class APIRunner<returnType, paramsType> {
     private builder;
     constructor(builder: APIBuilder<returnType, paramsType>);
     observe(callback: (data: EventMessage<returnType, paramsType>) => void): {
-        postEvent: (params?: paramsType) => Promise<void>;
+        postEvent: (params?: paramsType) => void;
         removeObserver: () => void;
+        catch: (clbkErr: (data: EventMessage<Error, paramsType>) => void) => {
+            postEvent: (params?: paramsType) => void;
+            removeObsever: () => void;
+        };
     };
     private postObserveMessage;
     run(params?: paramsType): Promise<returnType>;
