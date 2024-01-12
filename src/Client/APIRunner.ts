@@ -20,11 +20,15 @@ export class APIRunner<returnType, paramsType> {
 		}, handleRequest);
 
 		const rtn = {
-			postEvent      : (params?: paramsType) => this.postObserveMessage(evMsg, params as paramsType),
+			postEvent: (params?: paramsType) => {
+				this.postObserveMessage(evMsg, params as paramsType);
+				return rtn;
+			},
 			removeObserver : () => this.builder.client.offMessage(evMsg),
 			catch          : (clbkErr: (data: EventMessage<Error, paramsType>) => void) => {
 				errClbk = clbkErr;
-				return { postEvent: rtn.postEvent, removeObsever: rtn.removeObserver };
+				const { catch: _, ...others } = rtn;
+				return others;
 			}
 		};
 
