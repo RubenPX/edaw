@@ -23,7 +23,7 @@ module.exports = {
       "error",
       { "align": { "beforeColon": true, "afterColon": true, "on": "colon" } }
     ],
-    "no-unused-vars"                     : ["error", { "args": "none" }],
+    "no-unused-vars"                     : [2, { "args": "none", "destructuredArrayIgnorePattern": "^_" }],
     "@typescript-eslint/no-unused-vars"  : ["error", { "args": "none" }],
     "newline-per-chained-call"           : ["error", { "ignoreChainWithDepth": 4 }],
     "@typescript-eslint/no-explicit-any" : "off",
