@@ -29,25 +29,25 @@ const badgeYellow = 'background-color: #fa0; border-radius: 100px; color: #000;'
 const badgeWarn = 'background-color: #f53; border-radius: 100px; color: #000;';
 
 export class ConsoleFormatter {
-	public static info(badgeTitles: string | string[], data: any = '') {
+	public static info(badgeTitles: string | string[], ...data: any[]) {
 		if (badgeTitles instanceof Array) {
-			return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeInfo}`, data];
+			return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeInfo}`, ...data];
 		}
-		return ['%c' + badgeTitles, `${padding} ${badgeInfo}`, data];
+		return ['%c' + badgeTitles, `${padding} ${badgeInfo}`, ...data];
 	}
 
-	public static warn(badgeTitles: string | string[], data: any = '') {
-		if (badgeTitles instanceof Array) return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeWarn}`, data];
-		return ['%c' + badgeTitles, `${padding} ${badgeWarn}`, data];
+	public static warn(badgeTitles: string | string[], ...data: any[]) {
+		if (badgeTitles instanceof Array) return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeWarn}`, ...data];
+		return ['%c' + badgeTitles, `${padding} ${badgeWarn}`, ...data];
 	}
 
-	public static yellow(badgeTitles: string | string[], data: any = '') {
-		if (badgeTitles instanceof Array) return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeYellow}`, data];
-		return ['%c' + badgeTitles, `${padding} ${badgeYellow}`, data];
+	public static yellow(badgeTitles: string | string[], ...data: any[]) {
+		if (badgeTitles instanceof Array) return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeYellow}`, ...data];
+		return ['%c' + badgeTitles, `${padding} ${badgeYellow}`, ...data];
 	}
 
-	public static succes(badgeTitles: string | string[], data: any = '') {
-		if (badgeTitles instanceof Array) return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeSucc}`, data];
-		return ['%c' + badgeTitles, `${padding} ${badgeSucc}`, data];
+	public static succes(badgeTitles: string | string[], ...data: any[]) {
+		if (badgeTitles instanceof Array) return ['%c' + badgeTitles.join(' | '), `${padding} ${badgeSucc}`, ...data];
+		return ['%c' + badgeTitles, `${padding} ${badgeSucc}`, ...data];
 	}
 }
