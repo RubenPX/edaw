@@ -1,16 +1,9 @@
 {
   "name": "edaw",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "main": "./dist/edaw.cjs",
   "module": "./dist/edaw.mjs",
-  "exports": {
-    ".": {
-      "require": "./dist/edaw.cjs",
-      "import": "./dist/edaw.mjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "scripts": {
     "dev": "rimraf dist && tsc && vite build -w",
     "build": "rimraf dist && tsc && vite build",
