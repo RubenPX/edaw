@@ -6,36 +6,36 @@ settings:
 
 dependencies:
   '@types/node':
-    specifier: ^20.10.5
+    specifier: 20.10.5
     version: 20.10.5
   '@types/uuid':
-    specifier: ^9.0.7
+    specifier: 9.0.7
     version: 9.0.7
   uuid:
-    specifier: ^9.0.1
+    specifier: 9.0.1
     version: 9.0.1
 
 devDependencies:
   '@typescript-eslint/eslint-plugin':
-    specifier: ^6.16.0
+    specifier: 6.16.0
     version: 6.16.0(@typescript-eslint/parser@6.16.0)(eslint@8.56.0)(typescript@5.3.3)
   '@typescript-eslint/parser':
-    specifier: ^6.16.0
+    specifier: 6.16.0
     version: 6.16.0(eslint@8.56.0)(typescript@5.3.3)
   eslint:
-    specifier: ^8.56.0
+    specifier: 8.56.0
     version: 8.56.0
   rimraf:
-    specifier: ^5.0.5
+    specifier: 5.0.5
     version: 5.0.5
   typescript:
-    specifier: ^5.3.3
+    specifier: 5.3.3
     version: 5.3.3
   vite:
-    specifier: ^4.5.1
+    specifier: 4.5.1
     version: 4.5.1(@types/node@20.10.5)
   vite-plugin-dts:
-    specifier: ^3.7.0
+    specifier: 3.7.0
     version: 3.7.0(@types/node@20.10.5)(typescript@5.3.3)(vite@4.5.1)
 
 packages:
