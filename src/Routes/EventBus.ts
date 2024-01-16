@@ -1,5 +1,7 @@
 import { ConsoleFormatter, ConsolePrefix } from '../Console/Formatters';
 import type { ContextRoute, clientDefs } from '../Routes/ContextRoute';
+import { APIRunner } from '../Client/APIRunner';
+import { ClientRouteDefinition } from '../Client/APIBuilder';
 import { EventMessage } from '../Event/EventMessage';
 import { Logger } from '../Console/Logger';
 import { isWorker } from '../utils/isWorker';
@@ -166,4 +168,8 @@ export abstract class EventBus {
         return arr;
       }, {} as clientRoutesType<this>);
     }
+	
+		public instanceRunner<returnType, paramsType>(route: ClientRouteDefinition<returnType, paramsType>) {
+			return APIRunner.instanceBasic(this, route);
+		}
 }

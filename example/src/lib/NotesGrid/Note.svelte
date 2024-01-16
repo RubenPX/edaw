@@ -1,13 +1,11 @@
 <script lang="ts">
   import { WorkerInstance } from '$worker/ClientWorkerManager';
   import type { Note } from '$worker/Notes/domain/Note';
-  import { APIRunner } from '../../../../src';
 
   export let note: Note;
 
   const removeNoteHandle = (id: number) => {
-    let noteRemover = APIRunner.instanceBasic(WorkerInstance, WorkerInstance.Routes.Notes.RemoveNote);
-    noteRemover.run({ id });
+    WorkerInstance.instanceRunner(WorkerInstance.Routes.Notes.RemoveNote).run({ id });
   };
 </script>
 

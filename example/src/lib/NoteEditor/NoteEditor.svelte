@@ -1,18 +1,13 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import ColorPicker from './ColorPicker.svelte';
-  import { APIRunner } from '../../../../src';
   import { WorkerInstance } from '$worker/ClientWorkerManager';
 
-  const dispatch = createEventDispatcher();
   let title: string = '';
   let value: string = '';
   let color: string;
 
   let handleClick = () => {
-    let noteCreator = APIRunner.instanceBasic(WorkerInstance, WorkerInstance.Routes.Notes.NewNote);
-
-    noteCreator.run({
+    WorkerInstance.instanceRunner(WorkerInstance.Routes.Notes.NewNote).run({
       title,
       text: value,
       color,

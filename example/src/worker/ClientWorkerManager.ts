@@ -1,4 +1,4 @@
-import { APIBuilder, type ClientRouteDefinition, ContextRoute, EventBus, type clientRoutesType } from 'edaw';
+import { ContextRoute, EventBus, type clientRoutesType } from 'edaw';
 import { LocalStorageNotesClientContext } from './Notes/infrastructure/LocalStorageRepository';
 import type { WorkerManager } from './WorkerManager';
 import WorkerThread from './WorkerManager?worker';
@@ -33,10 +33,6 @@ export class ClientWorkerManager extends EventBus {
     });
   }
 
-  public instanceBuilder<returnType, paramsType>(route: ClientRouteDefinition<returnType, paramsType>) {
-    return new APIBuilder(route, this);
-  }
-
   private delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
   public async waitInitialize() {
     while (!this.initialized) {
@@ -46,7 +42,7 @@ export class ClientWorkerManager extends EventBus {
   }
 
   // eslint-disable-next-line no-use-before-define
-  public static instance?: ClientWorkerManager;
+  public static instance?: ClientWorkerManager & EventBus;
   public static getInstance(worker: Worker) {
     if (this.instance == null) this.instance = new ClientWorkerManager(worker);
     return this.instance;
