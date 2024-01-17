@@ -20,11 +20,11 @@ export class LocalStorageNotesRepository {
   constructor(public bus: EventBus) {}
 
   async get(): Promise<Note[] | null> {
-    return (await this.bus.postReturn<Note[], null>("NotesRepo", "GetNotes")).returnData ?? null;
+    return (await this.bus.postReturn<Note[], null>("NotesRepo", "LoadNotes")).returnData ?? null;
   }
 
   async set(data: Note[]): Promise<undefined> {
-    return (await this.bus.postReturn<undefined, Note[]>("NotesRepo", "SetNotes", data)).returnData;
+    return (await this.bus.postReturn<undefined, Note[]>("NotesRepo", "SaveNotes", data)).returnData;
   }
 }
 
@@ -33,8 +33,8 @@ export class LocalStorageNotesClientContext extends ContextRoute<NotesRepository
   public repos = undefined;
 
   public EventRoutes = { 
-    GetNotes : ClientLocalStorage.GetNotesEvent(this.repos),
-    SetNotes : ClientLocalStorage.SetNotesEvent(this.repos)
+    LoadNotes : ClientLocalStorage.GetNotesEvent(this.repos),
+    SaveNotes : ClientLocalStorage.SetNotesEvent(this.repos)
   };
 
   public contextName: string = "NotesRepo";
