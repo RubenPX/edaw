@@ -68,7 +68,7 @@ Todo empieza en la [inicialización del worker](https://github.com/RubenPX/Tiny-
 
 - Un worker es un [EventBus](./src/Routes/EventBus.ts)
 - Un contexto es una lista de [metodos](./src/Routes/ContextRoute.ts)
-- Un metodo es un [runner](./src/Routes/EventRunner.ts) que ejecuta una [acción](./example/src/worker/Notes/app/NewNote.ts)
+- Un [runner](./src/Routes/EventRunner.ts) es un metodo que ejecuta una [acción](./example/src/worker/Notes/app/NewNote.ts)
 
 Una vez se [recibe un evento](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/EventBus.ts#L18), el worker lo publica como un [evento de dominio](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/EventBus.ts#L35) y [busca el contexto mencionado](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/EventBus.ts#L66) en el mensaje. Una vez se ha encontrado el contexto, [se delega el mensaje a el contexto](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/EventBus.ts#L70). Ahí, el contexto, [busca el metodo que requiere](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/ContextRoute.ts#L20) y lo [delega a un runner](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/ContextRoute.ts#L24) que es el que se encarga de [procesar la solicitud del mensaje](https://github.com/RubenPX/Tiny-EDA-WebWorker/blob/39ea9c3803422f848fa5bf98256572b5f1534755/app/src/shared/Routes/EventRunner.ts#L12-L15)
 
