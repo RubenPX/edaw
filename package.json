@@ -5,7 +5,7 @@
   "module": "./dist/edaw.mjs",
   "types": "./src/index.ts",
   "scripts": {
-    "dev": "rimraf dist && tsc && vite build -w",
+    "dev": "set NODE_ENV=development&&vite build -w",
     "build": "rimraf dist && tsc && vite build",
     "lint": "eslint . --ext .ts"
   },
