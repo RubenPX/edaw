@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
+import type { EventBus } from '../Routes/EventBus';
 import { v4 } from 'uuid';
+
 
 export class EventMessage<out, eparams> {
 	public id = v4();
@@ -16,6 +18,10 @@ export class EventMessage<out, eparams> {
 
 	public static regenerate<rOut, eParams>(evMsg: EventMessage<rOut, eParams>) {
 		return new EventMessage(evMsg.context, evMsg.method, evMsg.params);
+	}
+
+	public publish(bus: EventBus) {
+		bus.publish(EventMessage.regenerate(this));
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

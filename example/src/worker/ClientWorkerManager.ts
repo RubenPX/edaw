@@ -1,5 +1,7 @@
 import { ContextRoute, EventBus, type clientRoutesType } from 'edaw';
 import { LocalStorageNotesClientContext } from './Notes/infrastructure/LocalStorageRepository';
+import type { Logger } from '../../../src/Console/Logger';
+import { PrivateLogger } from './Logger';
 import type { WorkerManager } from './WorkerManager';
 import WorkerThread from './WorkerManager?worker';
 
@@ -7,6 +9,8 @@ import WorkerThread from './WorkerManager?worker';
 
 export class ClientWorkerManager extends EventBus {
   protected routes: { [key: string]: ContextRoute<any>; };
+
+  protected logger: typeof Logger = PrivateLogger;
 
   public Routes!: clientRoutesType<WorkerManager>;
 
@@ -22,11 +26,14 @@ export class ClientWorkerManager extends EventBus {
     };
 
     this.postInitialize();
+    
+    // @ts-expect-error This to expose WorkerManager
+    window.EDAW = this;
 
-    this.observe({ context: 'root', method: 'initialized' }, (evMsg) => {
+    const msgEV = this.observe({ context: 'root', method: 'initialized' }, (evMsg) => {
       if (evMsg.returnData) this.Routes = evMsg.returnData;
       else console.warn("Routes request is empty...");
-      this.offMessage(evMsg);
+      this.offMessage(msgEV);
       console.groupEnd();
       this.initialized = true;
       initializedEvent && initializedEvent(evMsg.returnData!);

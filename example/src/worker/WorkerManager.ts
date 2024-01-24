@@ -1,12 +1,16 @@
 import { EventBus } from "edaw";
+import type { Logger } from "../../../src/Console/Logger";
 
 // Repos
 import { LocalStorageNotesRepository } from "./Notes/infrastructure/LocalStorageRepository";
 
 // Routes
 import { NotesFeature } from "./Notes";
+import { PrivateLogger } from "./Logger";
 
 export class WorkerManager extends EventBus {
+  protected logger: typeof Logger = PrivateLogger;
+
   protected routes!: {
     Notes: NotesFeature;
   };
@@ -31,6 +35,8 @@ export class WorkerManager extends EventBus {
     } satisfies WorkerManager["routes"];
 
     bus.postInitialize();
+    // @ts-expect-error This to expose WorkerManager
+    self.EDAW = bus;
   }
 }
 
