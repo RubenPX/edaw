@@ -41,7 +41,6 @@ export class WorkerManager extends EventBus {
 }
 
 async function initializeWorker() {
-  
   if (typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope) {
     await WorkerManager.initialize(self as unknown as Worker);
   }

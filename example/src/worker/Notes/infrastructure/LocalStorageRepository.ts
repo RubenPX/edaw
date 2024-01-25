@@ -1,20 +1,6 @@
-import { ContextRoute, type EventBus, EventRunner } from "edaw";
+import { type EventBus } from "edaw";
 
 import type { Note } from "../domain/Note";
-import type { NotesRepository } from "../domain/NotesRepository";
-
-class ClientLocalStorage {
-  public static GetNotesEvent = EventRunner.prepareEvent<Note[] | null, undefined, undefined>(async () => {
-    const data = localStorage.getItem("AppNotes");
-    if (data) return JSON.parse(data);
-    return null;
-  });
-
-  public static SetNotesEvent = EventRunner.prepareEvent<undefined, Note[], undefined>(async ({ params }) => {
-    if (params) localStorage.setItem("AppNotes", JSON.stringify(params));
-  });
-}
-
 
 export class LocalStorageNotesRepository {
   constructor(public bus: EventBus) {}
@@ -26,16 +12,4 @@ export class LocalStorageNotesRepository {
   async set(data: Note[]): Promise<undefined> {
     return (await this.bus.postReturn<undefined, Note[]>("NotesRepo", "SaveNotes", data)).returnData;
   }
-}
-
-export class LocalStorageNotesClientContext extends ContextRoute<NotesRepository>{
-
-  public repos = undefined;
-
-  public EventRoutes = { 
-    LoadNotes : ClientLocalStorage.GetNotesEvent(this.repos),
-    SaveNotes : ClientLocalStorage.SetNotesEvent(this.repos)
-  };
-
-  public contextName: string = "NotesRepo";
 }

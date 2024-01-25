@@ -1,5 +1,5 @@
 import { ContextRoute, EventBus, type clientRoutesType } from 'edaw';
-import { LocalStorageNotesClientContext } from './Notes/infrastructure/LocalStorageRepository';
+import { LocalStorageNotesClientContext } from './utils/client/LocalStorageRepository';
 import type { Logger } from '../../../src/Console/Logger';
 import { PrivateLogger } from './Logger';
 import type { WorkerManager } from './WorkerManager';
