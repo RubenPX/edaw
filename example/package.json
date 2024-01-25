@@ -22,6 +22,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"edaw": "github:RubenPX/edaw#9dc9c08"
+		"edaw": "link: ../"
 	}
 }

@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   edaw:
-    specifier: github:RubenPX/edaw#9dc9c08
+    specifier: 'link: ../'
     version: link:..
 
 devDependencies:
