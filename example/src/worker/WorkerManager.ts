@@ -27,7 +27,6 @@ export class WorkerManager extends EventBus {
 
   public static async initialize(worker: Worker) {
     const bus = new WorkerManager(worker);
-
     const dbs = await this.initializeDBs(bus);
 
     bus.routes = {
@@ -35,19 +34,20 @@ export class WorkerManager extends EventBus {
     } satisfies WorkerManager["routes"];
 
     bus.postInitialize();
+    
     // @ts-expect-error This to expose WorkerManager
     self.EDAW = bus;
   }
 }
 
 async function initializeWorker() {
-  if (typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope) {
-    await WorkerManager.initialize(self as unknown as Worker);
+  try {
+    if (typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope) {
+      await WorkerManager.initialize(self as unknown as Worker);
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 
-try {
-  initializeWorker();
-} catch (error) {
-  console.error(error);
-}
+initializeWorker();

@@ -4,9 +4,9 @@ import { NotesRepo } from "./infrastructure/NotesRepository";
 import type { NotesRepository } from "./domain/NotesRepository";
 
 // Routes
-import { GetNotes } from "./app/GetNotes";
-import { NewNote } from "./app/NewNote";
-import { RemoveNote } from "./app/RemoveNote";
+import { GetNotes } from "./Routes/GetNotes";
+import { NewNote } from "./Routes/NewNote";
+import { RemoveNote } from "./Routes/RemoveNote";
 
 export class NotesFeature extends ContextRoute<NotesRepository> {
   public contextName: string = 'Notes';

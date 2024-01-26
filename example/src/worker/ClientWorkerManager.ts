@@ -5,7 +5,7 @@ import { PrivateLogger } from './Logger';
 import type { WorkerManager } from './WorkerManager';
 import WorkerThread from './WorkerManager?worker';
 
-// import "./DebugUI";
+// Nota: Esto se ejecuta en el navegador, no en el worker
 
 export class ClientWorkerManager extends EventBus {
   protected routes: { [key: string]: ContextRoute<any>; };
