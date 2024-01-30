@@ -8,8 +8,8 @@ export class APIBuilder<returnType, paramsType> {
 	private sorter: ((a: any, b: any) => -1 | 0 | 1) | null = null;
 
 	constructor(
-        public readonly route: ClientRouteDefinition<returnType, paramsType>,
-        public readonly client: EventBus
+		public readonly route: ClientRouteDefinition<returnType, paramsType>,
+		public readonly client: EventBus
 	) {}
 
 	setFilter(filterName: string, filterFunction: (objeto: any) => boolean) {
