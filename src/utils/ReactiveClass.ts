@@ -17,6 +17,7 @@
   }
 
   public dispatchUpdate() {
+    if (this.reactIDs.length == 0) return;
     this.reactIDs.map((itm) => itm.callback());
   }
  }
