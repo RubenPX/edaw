@@ -1,7 +1,7 @@
 import { ConsoleFormatter, ConsolePrefix } from '../Console/Formatters';
 import type { ContextRoute, clientDefs } from '../Routes/ContextRoute';
 import { APIRunner } from '../Client/APIRunner';
-import { ClientRouteDefinition } from '../Client/APIBuilder';
+import type { ClientRouteDefinition } from '../Client/APIBuilder';
 import { EventMessage } from '../Event/EventMessage';
 import { Logger } from '../Console/Logger';
 import { isWorker } from '../utils/isWorker';

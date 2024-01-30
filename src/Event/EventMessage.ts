@@ -20,6 +20,7 @@ export class EventMessage<out, eparams> {
 		return new EventMessage(evMsg.context, evMsg.method, evMsg.params);
 	}
 
+	/** Re-publish new event without return */
 	public publish(bus: EventBus) {
 		bus.publish(EventMessage.regenerate(this));
 	}
