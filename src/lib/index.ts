@@ -9,6 +9,9 @@ export * from "./Event/EventMessage";
 export * from "./Client/APIBuilder";
 export * from "./Client/APIRunner";
 
+// Console
+export * from "./Console/Formatters";
+
 // Client definitions
 export type * from "./Routes/ContextRoute";
 

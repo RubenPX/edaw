@@ -1,3 +1,7 @@
+import type { EventBus, clientRoutesType } from "$lib";
+import { isWorker } from "$lib/utils/isWorker";
+export const workerLetter = isWorker ? 'W' : 'C';
+
 export const consoleDecorations = {
 	RoundedBorder: (color: string) => `border-left: 2px solid ${color}; border-right: 2px solid ${color}; padding: 0 4px; border-radius: 5px; `
 };
@@ -9,9 +13,6 @@ export const ConsoleColors = {
 	orange : 'color: #F80; ',
 	purple : 'color: #d602ee; '
 };
-
-export const isWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
-export const workerLetter = isWorker ? 'W' : 'C';
 
 export const ConsolePrefix = {
 	sendMsg            : [`%c${workerLetter}⮞`, ConsoleColors.orange + consoleDecorations.RoundedBorder('#F80')],
@@ -51,3 +52,19 @@ export class ConsoleFormatter {
 		return ['%c' + badgeTitles, `${padding} ${badgeSucc}`, ...data];
 	}
 }
+
+export const LogRoutes = <bus extends EventBus>(routes: clientRoutesType<bus>) => {
+	const RoutesStr = Object.entries(routes).map(([ctxName, ctx]) => {
+		// @ts-expect-error item.description is defined
+    return Object.entries(ctx).map(([name, item]) => ({ ctx: ctxName, method: name, description: item.description }));
+  });
+
+  const maxCtx = Math.max(...RoutesStr.map(itm => Math.max(...itm.map(iitm => iitm.ctx.length))));
+  const maxStr = Math.max(...RoutesStr.map(itm => Math.max(...itm.map(iitm => iitm.method.length))));
+
+  RoutesStr.forEach(itm => {
+    console.log(itm.map(itm => {
+      return `${itm.ctx.padEnd(maxCtx, ' ')} > ${itm.method.padEnd(maxStr, ' ')} | ${itm.description ? `${itm.description}` : ''}`;
+    }).join('\n'));
+  });
+};
