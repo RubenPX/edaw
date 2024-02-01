@@ -27,7 +27,7 @@ export class APIRunner<returnType, paramsType> {
 			removeObserver : () => this.builder.client.offMessage(evMsg),
 			catch          : (clbkErr: (data: EventMessage<Error, paramsType>) => void) => {
 				errClbk = clbkErr;
-				const { catch: _, ...others } = rtn;
+				const { catch: _catch, ...others } = rtn;
 				return others;
 			}
 		};

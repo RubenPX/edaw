@@ -1,6 +1,8 @@
-# Tiny WebWorker Event Driven Architecture
+# Event Driven Architecture WebWorker
 
 La idea de este proyecto es crear un proyecto base donde se use una arquitectura basada en eventos para usarlo con WebWorker
+
+Nota: este proyecto usa un pre-empaquetador. La libreria esta dentro de la carpeta [lib](src/lib)
 
 ## ¿Porque pensar como una libreria a parte y no como una aplicación única?
 
